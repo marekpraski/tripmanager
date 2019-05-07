@@ -24,5 +24,11 @@ public class TripManager {
 	public void remove(String name) {
 		tripList.remove(name);
 	}
+
+	public Trip findTrip(String name) {
+	    Trip trip;
+	    trip = tripList.get(name);
+	    return trip;
+    }
 	
 }

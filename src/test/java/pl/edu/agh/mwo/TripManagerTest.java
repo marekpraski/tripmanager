@@ -42,4 +42,13 @@ public class TripManagerTest {
 		assertEquals(0, tripManager.getTrips().size());
 		fail("chcemy zespuc");
 		}
+
+    @Test
+    public void testfindTrip() throws TripAlreadyExistsException {
+        tripManager.add(trip);
+        tripManager.add(trip1);
+        Trip foundTrip;
+        foundTrip = tripManager.findTrip("nazwa1");
+        assertEquals("nazwa1",foundTrip.getName() );
+    }
 }
