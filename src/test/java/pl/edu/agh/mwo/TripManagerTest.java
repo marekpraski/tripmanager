@@ -9,18 +9,21 @@ public class TripManagerTest {
 
 	TripManager tripManager;
 	Trip trip;
+    Trip trip1;
 	
 	@Before
 	public void setUp() {
 		tripManager = new TripManager();
 		trip = new Trip("nazwa", "opis");
+		trip1 = new Trip("nazwa1", "opis1");
 	}
 	
 	@Test
 	public void testAdd() throws TripAlreadyExistsException {
 		assertEquals(0, tripManager.getTrips().size());
 		tripManager.add(trip);
-		assertEquals(1, tripManager.getTrips().size());
+        tripManager.add(trip1);
+		assertEquals(2, tripManager.getTrips().size());
 	}
 
 	@Test(expected = TripAlreadyExistsException.class)
