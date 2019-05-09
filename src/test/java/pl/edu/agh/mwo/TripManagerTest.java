@@ -5,17 +5,22 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TripManagerTest {
 
 	TripManager tripManager;
 	Trip trip;
     Trip trip1;
+	Trip trip2;
 	
 	@Before
 	public void setUp() {
 		tripManager = new TripManager();
 		trip = new Trip("nazwa", "opis");
-		trip1 = new Trip("nazwa1", "opis1");
+		trip1 = new Trip("super fajna nazwa", "ciekawy opis");
+		trip2 = new Trip("nowa", "fajny i ciekawy opis");
 	}
 	
 	@Test
@@ -44,11 +49,40 @@ public class TripManagerTest {
 		}
 
     @Test
-    public void testfindTrip() throws TripAlreadyExistsException {
+    public void testfindTripNull() throws TripAlreadyExistsException {
         tripManager.add(trip);
         tripManager.add(trip1);
-        Trip foundTrip;
-        foundTrip = tripManager.findTrip("nazwa1");
-        assertEquals("nazwa1",foundTrip.getName() );
+        tripManager.add(trip2);
+        Map<String, Trip> foundTrips;
+        foundTrips = tripManager.findTrip("");
+        assertEquals(3,foundTrips.size() );
     }
-}
+
+    @Test
+    public void testfindTripByName() throws TripAlreadyExistsException {
+        tripManager.add(trip);
+        tripManager.add(trip1);
+        tripManager.add(trip2);
+        Map<String, Trip> foundTrips;
+        foundTrips = tripManager.findTrip("nazwa");
+        assertEquals(2,foundTrips.size() );
+    }
+    @Test
+    public void testfindTripByDesc() throws TripAlreadyExistsException {
+        tripManager.add(trip);
+        tripManager.add(trip1);
+        tripManager.add(trip2);
+        Map<String, Trip> foundTrips;
+        foundTrips = tripManager.findTrip("opis");
+        assertEquals(3, foundTrips.size());
+    }
+        @Test
+        public void testfindTripByNameAndDesc() throws TripAlreadyExistsException {
+            tripManager.add(trip);
+            tripManager.add(trip1);
+            tripManager.add(trip2);
+            Map<String, Trip> foundTrips;
+            foundTrips = tripManager.findTrip("fajn");
+            assertEquals(2,foundTrips.size() );
+        }
+    }
